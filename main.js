@@ -20,7 +20,7 @@ var files = document.createElement('input');
           else longitude = exifLong[0] + (( (exifLong[1]*60) + exifLong[2] ) / 3600);
           var fileData = {
             'File name':       file.name,
-            'Date of photo':   exif.DateTimeOriginal.slice(0, 10).replace(':','-'),
+            'Date of photo':   exif.DateTimeOriginal.slice(0, 10).replace(/:/g, '-'),
             'Time of photo':   exif.DateTimeOriginal.slice(-8),
             'DD Latitude':     latitude,
             'DD Longitude':    longitude,
