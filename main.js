@@ -22,9 +22,9 @@ var files = document.createElement('input');
             'File name':       file.name,
             'Date of photo':   exif.DateTimeOriginal.slice(0, 10).replace(/:/g, '-'),
             'Time of photo':   exif.DateTimeOriginal.slice(-8),
-            'DD Latitude':     latitude,
-            'DD Longitude':    longitude,
-            'DD Altitude':     exif.GPSAltitude * 1
+            'Latitude':        latitude,
+            'Longitude':       longitude,
+            'Altitude':        exif.GPSAltitude * 1
           };
           listData.push(fileData);
         })
