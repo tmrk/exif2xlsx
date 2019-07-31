@@ -38,7 +38,7 @@ var exportButton = document.createElement('button');
     exportButton.addEventListener('click', function() {
       var ws = XLSX.utils.json_to_sheet(listData);
       var wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "sheetname");
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
       var wbout = XLSX.write(wb, {bookType:'xlsx', type:'binary'});
       XLSX.writeFile(wb, 'Export_' + new Date().toISOString().replace('T', '_').replace(/:/g, '').slice(0,-5) + '.xlsx');
     })
