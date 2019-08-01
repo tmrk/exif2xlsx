@@ -1,12 +1,28 @@
 'use strict';
 
 var listData = [];
-var filedrag = document.createElement('div');
-    filedrag.id = 'filedrag';
+var wrapper = document.createElement('div'),
+    wrapperText = document.createElement('div'),
+    output = document.createElement('div');
+    wrapper.id = 'wrapper';
+    output.id = 'output';
 var files = document.createElement('input');
     files.setAttribute('type', 'file');
     files.setAttribute('multiple', '');
+    wrapper.appendChild(files);
+    wrapper.appendChild(wrapperText);
+
+function s(number) {
+  if (number < 2) return '';
+  else return 's';
+}
+
+wrapperText.innerHTML = '<p>Drag files here or click here to select</p>';
+
     files.addEventListener('change', function() {
+      wrapperText.innerHTML = '<p>'+ files.files.length +' file' + s(files.files.length) + ' selected</p>';
+      wrapper.classList.add('on');
+      exportButton.classList.add('on');
       var filesList = this.files;
       for (var i = 0; i < filesList.length; i++) {
         (function () {
@@ -33,8 +49,18 @@ var files = document.createElement('input');
       }
     });
 
+    files.addEventListener('dragenter', function() {
+      wrapper.classList.add('dragging');
+    });
+    files.addEventListener('drop', function() {
+      wrapper.classList.remove('dragging');
+    });
+    files.addEventListener('dragleave', function() {
+      wrapper.classList.remove('dragging');
+    });
+
 var exportButton = document.createElement('button');
-    exportButton.innerHTML = 'Export';
+    exportButton.innerHTML = 'Export to Excel';
     exportButton.addEventListener('click', function() {
       var ws = XLSX.utils.json_to_sheet(listData);
       var wb = XLSX.utils.book_new();
@@ -44,6 +70,7 @@ var exportButton = document.createElement('button');
     })
 
 document.addEventListener('DOMContentLoaded', function(event) {
-    document.body.appendChild(files);
+    document.body.appendChild(wrapper);
     document.body.appendChild(exportButton);
+    document.body.appendChild(output);
 });
